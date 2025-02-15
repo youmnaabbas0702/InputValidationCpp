@@ -7,17 +7,7 @@ using namespace std;
 class clsInputValidate
 {
 public:
-	static bool IsNumberBetween(int Number, int From, int To)
-	{
-		return Number >= From && Number <= To;
-	}
-
-	static bool IsNumberBetween(double Number, double From, double To)
-	{
-		return Number >= From && Number <= To;
-	}
-
-	static bool IsNumberBetween(float Number, float From, float To)
+	 template<typename T> static bool IsNumberBetween(T Number, T From, T To)
 	{
 		return Number >= From && Number <= To;
 	}
@@ -31,9 +21,9 @@ public:
 		return Date.IsDate1AfterDate2(DateFrom) && Date.IsDate1BeforeDate2(DateTo);
 	}
 
-	static int ReadIntNumber(string ErrorMsg)
+	template<typename T> static T ReadNumber(string ErrorMsg)
 	{
-		int Number;
+		T Number;
 		while (!(cin >> Number))
 		{
 			cin.clear();
@@ -43,45 +33,16 @@ public:
 		return Number;
 	}
 
-	static int ReadIntNumberBetween(int From, int To, string ErrorMsg)
+	template<typename T> static T ReadNumberBetween(T From, T To, string ErrorMsg)
 	{
-		int Number = ReadIntNumber(ErrorMsg);
-		while (!IsNumberBetween(Number, From, To))
+		T Number = ReadNumber<T>(ErrorMsg);
+		while (!IsNumberBetween<T>(Number, From, To))
 		{
 			cout << ErrorMsg;
 			Number = ReadIntNumber(ErrorMsg);
 		}
 
 		return Number;
-	}
-
-	static double ReadDblNumber(string ErrorMsg)
-	{
-		double Number;
-		while (!(cin >> Number))
-		{
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << ErrorMsg;
-		}
-		return Number;
-	}
-
-	static double ReadDblNumberBetween(double From, double To, string ErrorMsg)
-	{
-		double Number = ReadDblNumber(ErrorMsg);
-		while (!IsNumberBetween(Number, From, To))
-		{
-			cout << ErrorMsg;
-			Number = ReadDblNumber(ErrorMsg);
-		}
-
-		return Number;
-	}
-
-	static bool IsValidDate(clsDate Date)
-	{
-		return Date.IsValid();
 	}
 };
 
